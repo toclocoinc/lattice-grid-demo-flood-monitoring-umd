@@ -1,0 +1,32 @@
+{
+  "fetchedAt": "2026-09-19T17:39:09.673Z",
+  "fetchedAtMs": 1789839549681,
+  "seconds": 1.9,
+  "stations": 2421,
+  "alerts": 0,
+  "curated": [
+    {
+      "ref": "2642",
+      "label": "Worcester (Barbourne)",
+      "river": "River Severn"
+    },
+    {
+      "ref": "3400TH",
+      "label": "3400TH",
+      "river": ""
+    },
+    {
+      "ref": "4009",
+      "label": "Colwick",
+      "river": "River Trent"
+    },
+    {
+      "ref": "4085",
+      "label": "Derby City",
+      "river": "River Derwent"
+    }
+  ],
+  "source": "Environment Agency flood monitoring API",
+  "sourceUrl": "https://environment.data.gov.uk/flood-monitoring/doc/reference",
+  "licence": "Open Government Licence v3.0"
+}
