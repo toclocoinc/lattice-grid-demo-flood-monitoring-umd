@@ -30,13 +30,13 @@ station's chart, pushing the oldest reading out of the two-day window.
 Six tags in `index.html`, and that is the whole of the library setup:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.63.0/lattice-grid.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.66.0/lattice-grid.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.63.0/lattice-grid.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.63.0/modules/charts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.63.0/modules/data-router.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.63.0/modules/kpi.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.63.0/modules/tabs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.66.0/lattice-grid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.66.0/modules/charts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.66.0/modules/data-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.66.0/modules/kpi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@toclocoinc/lattice-grid@1.66.0/modules/tabs.min.js"></script>
 ```
 
 Each file is the package's UMD build and leaves a global behind:
@@ -54,7 +54,7 @@ one of its own, so its tag must come after the core's. The other three are
 self-contained and can go in any order. `main.js` checks that every factory it
 needs is actually there before it draws anything.
 
-Every address names the exact release, `1.63.0`, and every tag carries the
+Every address names the exact release, `1.66.0`, and every tag carries the
 `integrity` hash of the file it expects. The hashes are the SHA-384 of the
 published files.
 
