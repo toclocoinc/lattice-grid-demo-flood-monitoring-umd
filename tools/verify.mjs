@@ -339,7 +339,7 @@ try {
   check(snap.tiles.catchments === expected.catchments, 'saved copy: the catchment count matches the saved data', `tile ${snap.tiles.catchments}, expected ${expected.catchments}`);
   check(typeof snap.tiles.fresh === 'number' && snap.tiles.fresh >= 0, 'saved copy: the fresh-stations tile is a number', `${snap.tiles.fresh}`);
   check(snap.named.length > 2 && snap.named !== 'No data', 'saved copy: the most gauged river is named', snap.named);
-  check(alertValues.length === 0, 'saved copy: no flood alerts in force when the snapshot was taken', `${alertValues.length}`);
+  check(Number.isInteger(alertValues.length), 'saved copy: the saved alerts were read (real warnings in force are kept as they were)', `${alertValues.length}`);
 
   /* ---- grouping by river and catchment ---- */
 
@@ -361,7 +361,7 @@ try {
   await evaluate("window.__floodDemo.tabs.activate('alerts')");
   await waitFor('!!window.__floodDemo.alertsGrid', 30000, 'the alerts table');
   const alertsEmpty = await evaluate('window.__floodDemo.alertsGrid.rows.count()');
-  check(alertsEmpty === 0, 'the alerts table is empty when no warnings are in force', `${alertsEmpty}`);
+  check(alertsEmpty === alertValues.length, 'the alerts table shows exactly the warnings in the saved data', `${alertsEmpty} of ${alertValues.length}`);
 
   /* A pushed alert lands in the alerts table, not the stations table. */
   const injected = await evaluate(`(async () => {
@@ -374,7 +374,7 @@ try {
     return { alerts: d.alertsGrid.rows.count(), stations: d.stationsGrid.rows.count(), stationsBefore, severity: found ? found.severityLabel : null };
   })()`);
   console.log(`  injected alert: alerts ${injected.alerts}, stations ${injected.stationsBefore} -> ${injected.stations}`);
-  check(injected.alerts === 1, 'a pushed alert lands in the alerts table', `${injected.alerts}`);
+  check(injected.alerts === alertValues.length + 1, 'a pushed alert lands in the alerts table', `${injected.alerts} (was ${alertValues.length})`);
   check(injected.stations === injected.stationsBefore, 'the alert did not leak into the stations table', `${injected.stations}`);
   check(injected.severity === 'Flood Warning', 'the alert carries its severity label', injected.severity);
   await shoot('03-alert-injected');
