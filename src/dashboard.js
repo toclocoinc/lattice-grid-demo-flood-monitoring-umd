@@ -567,7 +567,11 @@
           'Flood warnings appear only while a river actually threatens to flood.',
       ),
     );
-    footer.append(line);
+    const builtWith = el('p', null, 'Built with ');
+    const builtWithLink = el('a', null, 'Lattice Grid');
+    builtWithLink.href = 'https://www.latticegrid.dev/realtime-applications/';
+    builtWith.append(builtWithLink);
+    footer.append(line, builtWith);
     host.append(footer);
 
     built.destroy = () => {
