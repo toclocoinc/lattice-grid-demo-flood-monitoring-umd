@@ -399,7 +399,13 @@
 
     /* ---------------- the rolling charts ---------------- */
 
-    const trimWindow = (rows) => rows.filter((row) => Date.now() - row.time <= WINDOW_MS);
+    /*
+     * The window rolls from "now", but a saved copy has no visitor clock to
+     * roll from: its readings stop at the moment it was fetched, so that
+     * moment is its "now" for as long as the copy ages. Live mode rolls from
+     * the real clock, same as the API it is reading.
+     */
+    const windowNow = meta.live ? Date.now : () => meta.fetchedAtMs;
 
     const chartSpecs = curated.map((entry, index) => ({
       box: chartBoxes[index],
@@ -425,7 +431,7 @@
           x: 'time',
           y: 'level',
           title: spec.title,
-          axis: { y: 'Level (m)', x: { labels: true } },
+          axis: { y: 'Level (m)', x: { labels: true, window: { kind: 'time', span: WINDOW_MS, now: windowNow } } },
           legend: false,
         });
         built.charts.push(chart);
@@ -435,13 +441,13 @@
       }
     }
 
-    /** Push fresh readings into the rolling charts. */
+    /** Push fresh readings into the rolling charts. The chart's own axis
+        window rolls the display, so the grid is simply handed what arrived. */
     const updateSeries = (nextSeries) => {
       for (const spec of chartSpecs) {
         const grid = built.seriesGrids[spec.ref];
         if (!grid) continue;
-        const rows = trimWindow((nextSeries && nextSeries[spec.ref]) || []);
-        grid.rows.load(rows);
+        grid.rows.load((nextSeries && nextSeries[spec.ref]) || []);
       }
     };
     built.updateSeries = updateSeries;
